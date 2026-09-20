@@ -1,6 +1,7 @@
 from datetime import date, datetime, timedelta
 
 from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -55,5 +56,49 @@ async def create_booking(
     except IntegrityError:
         await db.rollback()
         raise HTTPException(status.HTTP_409_CONFLICT, "该时段已被预约")
+    await db.refresh(booking)
+    return booking
+
+
+@router.get("/bookings/my", response_model=list[BookingOut])
+async def my_bookings(
+    user: User = Depends(require_role("user")),
+    db: AsyncSession = Depends(get_db),
+) -> list[BookingOut]:
+    rows = (
+        await db.execute(
+            select(Booking, Court.name)
+            .join(Court, Booking.court_id == Court.id)
+            .where(Booking.user_id == user.id)
+            .order_by(Booking.date.desc(), Booking.start_time.desc())
+        )
+    ).all()
+    result = []
+    for booking, court_name in rows:
+        out = BookingOut.model_validate(booking)
+        out.court_name = court_name
+        result.append(out)
+    return result
+
+
+@router.delete("/bookings/{booking_id}", response_model=BookingOut)
+async def cancel_booking(
+    booking_id: int,
+    user: User = Depends(require_role("user")),
+    db: AsyncSession = Depends(get_db),
+) -> Booking:
+    booking = await db.get(Booking, booking_id)
+    if booking is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "预定不存在")
+    if booking.user_id != user.id:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, "无权取消他人预定")
+    if booking.status != "booked":
+        raise HTTPException(status.HTTP_409_CONFLICT, "当前状态不可取消")
+    # Q-06：仅时段开始前可取消（本机时区）
+    slot_start = datetime.combine(booking.date, booking.start_time)
+    if slot_start <= datetime.now():
+        raise HTTPException(status.HTTP_409_CONFLICT, "时段已开始，无法取消")
+    booking.status = "cancelled"
+    await db.commit()
     await db.refresh(booking)
     return booking

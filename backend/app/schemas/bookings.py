@@ -22,3 +22,4 @@ class BookingOut(BaseModel):
     price: Decimal | None
     paid: bool
     created_at: datetime
+    court_name: str | None = None  # 列表接口 join Court 填充；创建响应为 null
