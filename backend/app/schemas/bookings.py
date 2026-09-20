@@ -23,3 +23,9 @@ class BookingOut(BaseModel):
     paid: bool
     created_at: datetime
     court_name: str | None = None  # 列表接口 join Court 填充；创建响应为 null
+
+
+class AdminBookingOut(BookingOut):
+    """管理视图响应模型（venue_admin / admin）：BookingOut + username"""
+
+    username: str
