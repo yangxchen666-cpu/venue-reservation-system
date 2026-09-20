@@ -563,7 +563,7 @@ git commit -m "feat: models alembic migration and idempotent admin seed"
 - 创建：`backend/app/schemas/auth.py`、`backend/app/routers/__init__.py`、`backend/app/routers/auth.py`、`backend/tests/test_auth.py`
 - 修改：`backend/app/security.py`（补 JWT）、`backend/app/main.py`（注册路由）
 
-- [ ] **步骤 1：完善 `backend/app/security.py`**
+- [x] **步骤 1：完善 `backend/app/security.py`**
 
 ```python
 from datetime import datetime, timedelta, timezone
@@ -623,7 +623,7 @@ def require_role(*roles: str):
     return checker
 ```
 
-- [ ] **步骤 2：创建 `backend/app/schemas/auth.py`**
+- [x] **步骤 2：创建 `backend/app/schemas/auth.py`**
 
 ```python
 class RegisterRequest(BaseModel):
@@ -650,11 +650,11 @@ class MeResponse(UserOut):
     application_status: str | None  # pending / approved / rejected / null（SPEC-D1）
 ```
 
-- [ ] **步骤 3：创建 `backend/app/routers/auth.py`**，端点：`POST /auth/register`（用户名重复 → 409「用户名已存在」）、`POST /auth/login`（用户名或密码错误统一返回 401「用户名或密码错误」）、`GET /auth/me`（含 `application_status` 查询，见 SPEC-D1）。
+- [x] **步骤 3：创建 `backend/app/routers/auth.py`**，端点：`POST /auth/register`（用户名重复 → 409「用户名已存在」）、`POST /auth/login`（用户名或密码错误统一返回 401「用户名或密码错误」）、`GET /auth/me`（含 `application_status` 查询，见 SPEC-D1）。
 
-- [ ] **步骤 4：注册路由到 `main.py`**，`app.include_router(auth_router, prefix="/auth", tags=["auth"])`。
+- [x] **步骤 4：注册路由到 `main.py`**，`app.include_router(auth_router, prefix="/auth", tags=["auth"])`。
 
-- [ ] **步骤 5：先写测试 `backend/tests/test_auth.py`**（TDD），用例：
+- [x] **步骤 5：先写测试 `backend/tests/test_auth.py`**（TDD），用例：
 1. 注册成功 → 201，响应含 UserOut 且无 password_hash
 2. 重复用户名 → 409
 3. 用户名含非法字符 / 过短 → 422
@@ -665,7 +665,7 @@ class MeResponse(UserOut):
 8. 伪造 token → 401
 9. 未注册时 `application_status` 为 null（SPEC-D1）
 
-- [ ] **步骤 6：运行测试**
+- [x] **步骤 6：运行测试**
 
 ```bash
 python -m pytest tests/test_auth.py -v
@@ -673,7 +673,7 @@ python -m pytest tests/test_auth.py -v
 
 预期：全部 PASS。
 
-- [ ] **步骤 7：Commit**
+- [x] **步骤 7：Commit**
 
 ```bash
 git status --short && git diff --stat
@@ -689,16 +689,16 @@ git commit -m "feat: jwt auth with register login and me endpoints"
 - 创建：`backend/app/schemas/application.py`、`backend/tests/test_application.py`
 - 修改：`backend/app/routers/auth.py`（追加端点）
 
-- [ ] **步骤 1：先写测试**（TDD），用例：
+- [x] **步骤 1：先写测试**（TDD），用例：
 1. 普通用户提交申请 → 201，`application_status` 变为 `pending`
 2. 已有 pending 申请再提交 → 409「已有待审批申请」
 3. 已有 approved 申请再提交 → 409「已是场地管理员」
 4. 已驳回（rejected）后再提交 → 201（可重新申请，Q-14 基线）
 5. 未登录提交 → 401；venue_admin / admin 提交 → 403
 
-- [ ] **步骤 2：实现 `POST /auth/apply-venue-admin`**：`require_role("user")`；按状态规则校验（上述 2/3/4）；创建 `Application(user_id, status="pending")`；返回 201。
+- [x] **步骤 2：实现 `POST /auth/apply-venue-admin`**：`require_role("user")`；按状态规则校验（上述 2/3/4）；创建 `Application(user_id, status="pending")`；返回 201。
 
-- [ ] **步骤 3：运行测试**
+- [x] **步骤 3：运行测试**
 
 ```bash
 python -m pytest tests/test_application.py -v
@@ -706,7 +706,7 @@ python -m pytest tests/test_application.py -v
 
 预期：全部 PASS。
 
-- [ ] **步骤 4：Commit**
+- [x] **步骤 4：Commit**
 
 ```bash
 git status --short && git diff --stat
