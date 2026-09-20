@@ -41,7 +41,10 @@ async def get_current_user(
         payload = jwt.decode(credentials.credentials, settings.jwt_secret, algorithms=["HS256"])
     except jwt.PyJWTError:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, "登录已过期，请重新登录")
-    user = await db.get(User, int(payload["sub"]))
+    try:
+        user = await db.get(User, int(payload["sub"]))
+    except (KeyError, ValueError, TypeError):
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED, "无效的登录凭证")
     if user is None:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, "用户不存在")
     return user  # 每次请求读库，角色变更即时生效

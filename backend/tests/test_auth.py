@@ -1,4 +1,15 @@
+from datetime import datetime, timedelta, timezone
+
+import jwt
 import pytest
+
+from app.config import settings
+
+
+def _make_token(**overrides) -> str:
+    payload = {"role": "user", "exp": datetime.now(timezone.utc) + timedelta(minutes=30)}
+    payload.update(overrides)
+    return jwt.encode(payload, settings.jwt_secret, algorithm="HS256")
 
 
 async def test_register_success(client):
@@ -85,3 +96,17 @@ async def test_me_application_status_null_when_no_application(client):
     resp = await client.get("/auth/me", headers={"Authorization": f"Bearer {token}"})
     assert resp.status_code == 200
     assert resp.json()["application_status"] is None
+
+
+async def test_me_token_missing_sub(client):
+    # 正确密钥签名但 payload 缺 sub：无效凭证必须 401 而非 500
+    token = _make_token()
+    resp = await client.get("/auth/me", headers={"Authorization": f"Bearer {token}"})
+    assert resp.status_code == 401
+
+
+async def test_me_token_non_numeric_sub(client):
+    # 正确密钥签名但 sub 非数字：无效凭证必须 401 而非 500
+    token = _make_token(sub="abc")
+    resp = await client.get("/auth/me", headers={"Authorization": f"Bearer {token}"})
+    assert resp.status_code == 401
