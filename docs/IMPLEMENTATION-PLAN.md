@@ -722,7 +722,7 @@ git commit -m "feat: venue admin application endpoint"
 - 创建：`backend/app/schemas/courts.py`（含 `COURT_TYPES` 枚举常量）、`backend/app/routers/courts.py`、`backend/tests/test_courts.py`
 - 修改：`backend/app/main.py`
 
-- [ ] **步骤 1：先写测试**（TDD），用例：
+- [x] **步骤 1：先写测试**（TDD），用例：
 1. `GET /courts` 无数据 → 200 空列表
 2. 造数后 `GET /courts` → 200，返回全部球场，字段含 id/name/type/price/open_time/close_time/slot_minutes
 3. `GET /courts?type=篮球` → 仅返回篮球场
@@ -731,12 +731,12 @@ git commit -m "feat: venue admin application endpoint"
 6. 创建类型非枚举值 → 422（`COURT_TYPES = ["羽毛球", "篮球", "网球", "足球"]`，字段校验）
 7. `GET /courts/{id}/booked-slots?date=2026-09-25`：无预定 → 200 `[]`；有一条 09:00 预定 → `["09:00:00"]`；未带 date 参数 → 422
 
-- [ ] **步骤 2：实现 `routers/courts.py`**：
+- [x] **步骤 2：实现 `routers/courts.py`**：
   - `GET /courts`：可选 query 参数 `type` / `price_min` / `price_max`，`ORDER BY id`；公开访问
   - `GET /courts/{court_id}`：404 处理
   - `GET /courts/{court_id}/booked-slots?date=YYYY-MM-DD`：查该球场该日期所有 `start_time`，返回 `["09:00:00", ...]` 字符串列表（Q-19 / SPEC-2 基线）
 
-- [ ] **步骤 3：运行测试**
+- [x] **步骤 3：运行测试**
 
 ```bash
 python -m pytest tests/test_courts.py -v
@@ -744,7 +744,7 @@ python -m pytest tests/test_courts.py -v
 
 预期：全部 PASS。
 
-- [ ] **步骤 4：Commit**
+- [x] **步骤 4：Commit**
 
 ```bash
 git status --short && git diff --stat
