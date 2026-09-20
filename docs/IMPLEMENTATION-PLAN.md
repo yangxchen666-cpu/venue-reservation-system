@@ -958,7 +958,7 @@ git commit -m "feat: venue admin bookings check-in calendar and cancellation"
 - 创建：`backend/app/routers/admin.py`、`backend/tests/test_admin_users.py`
 - 修改：`backend/app/main.py`
 
-- [ ] **步骤 1：先写测试**（TDD），用例：
+- [x] **步骤 1：先写测试**（TDD），用例：
 1. `GET /admin/users` → 200 全量用户列表，支持 `?role=user` 筛选；不含 password_hash
 2. `PUT /admin/users/{id}/role` 设 `venue_admin` → 200，角色生效（该用户随后访问 venue-admin 接口成功）
 3. role 传非法值 → 422
@@ -969,9 +969,9 @@ git commit -m "feat: venue admin bookings check-in calendar and cancellation"
 8. 对非 pending 申请审批 → 409；申请不存在 → 404
 9. 非 admin 访问全部返回 403 / 401
 
-- [ ] **步骤 2：实现 `routers/admin.py`**：全部端点 `require_role("admin")`；审批动作在事务内完成「更新申请 + 升级角色」；Q-13 基线：仅查看 + 角色管理，不提供禁用/删除端点。
+- [x] **步骤 2：实现 `routers/admin.py`**：全部端点 `require_role("admin")`；审批动作在事务内完成「更新申请 + 升级角色」；Q-13 基线：仅查看 + 角色管理，不提供禁用/删除端点。
 
-- [ ] **步骤 3：运行测试**
+- [x] **步骤 3：运行测试**
 
 ```bash
 python -m pytest tests/test_admin_users.py -v
@@ -979,7 +979,7 @@ python -m pytest tests/test_admin_users.py -v
 
 预期：全部 PASS。
 
-- [ ] **步骤 4：Commit**
+- [x] **步骤 4：Commit**
 
 ```bash
 git status --short && git diff --stat
