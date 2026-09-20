@@ -838,7 +838,7 @@ git commit -m "feat: booking creation with db-level overbooking prevention"
 - 创建：`backend/tests/test_my_bookings.py`
 - 修改：`backend/app/routers/bookings.py`（追加端点）、`backend/app/schemas/bookings.py`（BookingOut 增加 `court_name`）
 
-- [ ] **步骤 1：先写测试**（TDD），用例：
+- [x] **步骤 1：先写测试**（TDD），用例：
 1. `GET /bookings/my` → 仅返回当前用户的预定，按 date DESC / start_time DESC 排序，含 `court_name`
 2. 未登录 → 401
 3. `DELETE /bookings/{id}` 本人未开始预定 → 200，`status` 变 `cancelled`（软取消，记录保留）
@@ -847,11 +847,11 @@ git commit -m "feat: booking creation with db-level overbooking prevention"
 6. 时段已开始（date+start_time ≤ 当前时间）→ 409「时段已开始，无法取消」（Q-06 基线）
 7. 已核销预定取消 → 409；已取消预定再取消 → 409
 
-- [ ] **步骤 2：实现**：
+- [x] **步骤 2：实现**：
   - `GET /bookings/my`：`require_role("user")`，`Booking.user_id == current_user.id`，join Court 取名称
   - `DELETE /bookings/{booking_id}`：归属校验 → 403；状态校验（仅 `booked` 可取消）→ 409；时限校验（本机时区 `datetime.combine(date, start_time) <= now()`）→ 409；置 `status="cancelled"` 并 commit
 
-- [ ] **步骤 3：运行测试**
+- [x] **步骤 3：运行测试**
 
 ```bash
 python -m pytest tests/test_my_bookings.py -v
