@@ -1,6 +1,7 @@
 import pytest
 import pytest_asyncio
 from httpx import ASGITransport, AsyncClient
+from sqlalchemy import delete
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 from sqlalchemy.pool import NullPool
 
@@ -19,6 +20,17 @@ async def test_engine():
         await conn.run_sync(Base.metadata.create_all)
     yield engine
     await engine.dispose()
+
+
+@pytest.fixture(autouse=True)
+async def _clean_tables(test_engine):
+    # 测试库为会话级共享：每个用例前清空数据，避免跨用例残留互相污染
+    async with test_engine.begin() as conn:
+        await conn.execute(delete(models.Booking))
+        await conn.execute(delete(models.Application))
+        await conn.execute(delete(models.Court))
+        await conn.execute(delete(models.User))
+    yield
 
 
 @pytest.fixture
