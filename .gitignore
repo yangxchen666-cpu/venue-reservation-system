@@ -1,0 +1,25 @@
+# Node
+node_modules/
+.next/
+out/
+npm-debug.log*
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# 环境配置（含密钥，禁止入库）
+.env
+.env.local
+
+# SDD 工作区（账本/简报/报告）
+.superpowers/
+
+# git worktrees
+.claude/worktrees/
+
+# IDE
+.idea/
+.vscode/
