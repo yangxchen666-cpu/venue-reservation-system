@@ -113,14 +113,14 @@ PRD 的 27 项待确认事项（Q-01 ~ Q-27）在本计划中按下表「基线�
 **文件：**
 - 创建：`.gitignore`、`README.md`
 
-- [ ] **步骤 1：初始化 git 仓库**
+- [x] **步骤 1：初始化 git 仓库**
 
 ```bash
 cd /e/Dev/aicoding/demo260920-gym
 git init
 ```
 
-- [ ] **步骤 2：创建 `.gitignore`**
+- [x] **步骤 2：创建 `.gitignore`**
 
 ```gitignore
 # Node
@@ -144,7 +144,7 @@ __pycache__/
 .vscode/
 ```
 
-- [ ] **步骤 3：创建 `README.md`**，含以下内容：
+- [x] **步骤 3：创建 `README.md`**，含以下内容：
 
 ```markdown
 # 球场预定管理系统
@@ -164,7 +164,7 @@ __pycache__/
 3. 前端：`cd frontend && npm install && npm run dev`，访问 http://localhost:3000
 ```
 
-- [ ] **步骤 4：验证**
+- [x] **步骤 4：验证**
 
 ```bash
 git status --short
@@ -172,7 +172,7 @@ git status --short
 
 预期：`.gitignore`、`README.md` 出现在未跟踪列表。
 
-- [ ] **步骤 5：Commit**
+- [x] **步骤 5：Commit**
 
 ```bash
 git status --short && git diff --stat
@@ -185,7 +185,7 @@ git commit -m "chore: init repo with gitignore and readme"
 **文件：**
 - 创建：`backend/.env.example`、`backend/.env`（本机，不入库）
 
-- [ ] **步骤 1：检查 PostgreSQL 是否已安装**
+- [x] **步骤 1：检查 PostgreSQL 是否已安装**
 
 ```bash
 psql --version
@@ -193,7 +193,7 @@ psql --version
 
 预期：输出 `psql (PostgreSQL) 17.x`。若未安装或版本不是 17，执行步骤 2；否则跳到步骤 3。
 
-- [ ] **步骤 2：安装 PostgreSQL 17**（仅当步骤 1 不满足时执行）
+- [x] **步骤 2：安装 PostgreSQL 17**（仅当步骤 1 不满足时执行）
 
 ```bash
 winget install --id PostgreSQL.PostgreSQL.17 -e
@@ -201,7 +201,7 @@ winget install --id PostgreSQL.PostgreSQL.17 -e
 
 安装时记录 postgres 超级用户密码；安装完成后重开终端使 `psql` 进入 PATH。
 
-- [ ] **步骤 3：创建配置模板 `backend/.env.example`**
+- [x] **步骤 3：创建配置模板 `backend/.env.example`**
 
 ```ini
 # 数据库连接（asyncpg 驱动）
@@ -215,7 +215,7 @@ SEED_ADMIN_USERNAME=admin
 SEED_ADMIN_PASSWORD=CHANGE_ME
 ```
 
-- [ ] **步骤 4：创建本机 `backend/.env`**（复制模板并填写真实值；此文件已被 `.gitignore` 排除）
+- [x] **步骤 4：创建本机 `backend/.env`**（复制模板并填写真实值；此文件已被 `.gitignore` 排除）
 
 ```bash
 mkdir -p backend && cp backend/.env.example backend/.env
@@ -223,14 +223,14 @@ mkdir -p backend && cp backend/.env.example backend/.env
 
 用 `python -c "import secrets; print(secrets.token_hex(32))"` 生成 JWT_SECRET，替换 `CHANGE_ME`。
 
-- [ ] **步骤 5：创建数据库与账号**
+- [x] **步骤 5：创建数据库与账号**
 
 ```bash
 psql -U postgres -c "CREATE USER gym_app WITH PASSWORD '你设置的口令';"
 psql -U postgres -c "CREATE DATABASE gym_booking OWNER gym_app;"
 ```
 
-- [ ] **步骤 6：验证连接**
+- [x] **步骤 6：验证连接**
 
 ```bash
 psql "postgresql://gym_app:你设置的口令@localhost:5432/gym_booking" -c "SELECT version();"
@@ -238,7 +238,7 @@ psql "postgresql://gym_app:你设置的口令@localhost:5432/gym_booking" -c "SE
 
 预期：输出 `PostgreSQL 17.x`。
 
-- [ ] **步骤 7：Commit**
+- [x] **步骤 7：Commit**
 
 ```bash
 git status --short && git diff --stat
@@ -255,7 +255,7 @@ git commit -m "chore: add backend env template"
 **文件：**
 - 创建：`backend/requirements.txt`、`backend/app/__init__.py`、`backend/app/main.py`、`backend/app/config.py`、`backend/app/db.py`、`backend/tests/__init__.py`、`backend/tests/conftest.py`
 
-- [ ] **步骤 1：创建 `backend/requirements.txt`**
+- [x] **步骤 1：创建 `backend/requirements.txt`**
 
 ```
 fastapi>=0.115
@@ -271,7 +271,7 @@ pytest-asyncio
 httpx
 ```
 
-- [ ] **步骤 2：创建虚拟环境并安装依赖**
+- [x] **步骤 2：创建虚拟环境并安装依赖**
 
 ```bash
 cd backend && python -m venv .venv && source .venv/Scripts/activate && pip install -r requirements.txt
@@ -279,7 +279,7 @@ cd backend && python -m venv .venv && source .venv/Scripts/activate && pip insta
 
 验证：`python --version` 输出 3.12+。
 
-- [ ] **步骤 3：创建 `backend/app/config.py`**
+- [x] **步骤 3：创建 `backend/app/config.py`**
 
 ```python
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -299,7 +299,7 @@ class Settings(BaseSettings):
 settings = Settings()
 ```
 
-- [ ] **步骤 4：创建 `backend/app/db.py`**
+- [x] **步骤 4：创建 `backend/app/db.py`**
 
 ```python
 from collections.abc import AsyncGenerator
@@ -323,7 +323,7 @@ async def get_db() -> AsyncGenerator[AsyncSession, None]:
         yield session
 ```
 
-- [ ] **步骤 5：创建 `backend/app/main.py`**
+- [x] **步骤 5：创建 `backend/app/main.py`**
 
 ```python
 from fastapi import FastAPI
@@ -348,7 +348,7 @@ async def healthz() -> dict[str, str]:
 
 （路由注册在后续任务逐个 `app.include_router(...)` 追加。）
 
-- [ ] **步骤 6：创建测试基建 `backend/tests/conftest.py`**
+- [x] **步骤 6：创建测试基建 `backend/tests/conftest.py`**
 
 ```python
 import pytest
@@ -386,7 +386,7 @@ async def client(test_engine):
     app.dependency_overrides.clear()
 ```
 
-- [ ] **步骤 7：创建测试库并运行冒烟测试**
+- [x] **步骤 7：创建测试库并运行冒烟测试**
 
 ```bash
 psql -U postgres -c "CREATE DATABASE gym_booking_test OWNER gym_app;"
@@ -395,7 +395,7 @@ python -m pytest tests/ -v
 
 预期：0 个用例被收集（no tests ran），无错误。
 
-- [ ] **步骤 8：启动验证**
+- [x] **步骤 8：启动验证**
 
 ```bash
 uvicorn app.main:app --reload
@@ -403,7 +403,7 @@ uvicorn app.main:app --reload
 
 浏览器打开 `http://localhost:8000/docs` 确认 Swagger 可访问、`/healthz` 返回 `{"status":"ok"}`。
 
-- [ ] **步骤 9：Commit**
+- [x] **步骤 9：Commit**
 
 ```bash
 git status --short && git diff --stat
@@ -419,7 +419,7 @@ git commit -m "feat: fastapi skeleton with config db cors and test base"
 - 创建：`backend/app/models/__init__.py`、`backend/app/models/user.py`、`backend/app/models/application.py`、`backend/app/models/court.py`、`backend/app/models/booking.py`、`backend/app/seed.py`、`backend/alembic.ini`、`backend/alembic/`（`alembic init alembic` 生成）、`backend/tests/test_models.py`
 - 修改：`backend/alembic/env.py`、`backend/tests/conftest.py`（增加 `db_session` fixture，见步骤 6）
 
-- [ ] **步骤 1：创建 4 个模型**（SQLAlchemy 2.0 `Mapped` 风格；字段与 SPEC 第 6 章一致）
+- [x] **步骤 1：创建 4 个模型**（SQLAlchemy 2.0 `Mapped` 风格；字段与 SPEC 第 6 章一致）
 
 ```python
 # app/models/user.py
@@ -472,7 +472,7 @@ class Booking(Base):
 
 `models/__init__.py` 导出 4 个模型类，保证 `Base.metadata` 完整（Alembic 依赖）。
 
-- [ ] **步骤 2：初始化 Alembic 并改造 `env.py` 支持异步**
+- [x] **步骤 2：初始化 Alembic 并改造 `env.py` 支持异步**
 
 ```bash
 cd backend && alembic init alembic
@@ -495,7 +495,7 @@ def run_migrations_online():
     await connectable.dispose()
 ```
 
-- [ ] **步骤 3：生成并执行初始迁移**
+- [x] **步骤 3：生成并执行初始迁移**
 
 ```bash
 alembic revision --autogenerate -m "init users applications courts bookings"
@@ -505,7 +505,7 @@ psql "postgresql://gym_app:你的口令@localhost:5432/gym_booking" -c "\d booki
 
 预期：`\d bookings` 显示 `uq_booking_court_date_start` 唯一约束。
 
-- [ ] **步骤 4：创建 `backend/app/seed.py`（幂等：账号已存在则跳过）**
+- [x] **步骤 4：创建 `backend/app/seed.py`（幂等：账号已存在则跳过）**
 
 ```python
 async def seed_admin() -> None:
@@ -523,7 +523,7 @@ async def seed_admin() -> None:
 
 `seed.py` 依赖 `app/security.py` 的 `hash_password`（在任务 5 实现；本任务先创建 `backend/app/security.py` 并实现 bcrypt 哈希函数，JWT 部分留待任务 5）。
 
-- [ ] **步骤 5：运行 seed 并验证**
+- [x] **步骤 5：运行 seed 并验证**
 
 ```bash
 python -m app.seed
@@ -532,14 +532,14 @@ psql "postgresql://gym_app:你的口令@localhost:5432/gym_booking" -c "SELECT i
 
 预期：输出一行 `admin` / `admin`。再次运行 `python -m app.seed` 预期输出 `seed skipped`（幂等）。
 
-- [ ] **步骤 6：编写模型测试 `backend/tests/test_models.py`**
+- [x] **步骤 6：编写模型测试 `backend/tests/test_models.py`**
 
 先在 `backend/tests/conftest.py` 增加 `db_session` fixture（从 `test_engine` 创建 sessionmaker 并 yield session，供模型级用例直连测试库使用），然后编写用例（pytest-asyncio）：
 1. 创建 User → 默认 role 为 `user`
 2. 创建 Booking 两条相同 `(court_id, date, start_time)` → 第二条 commit 抛 `IntegrityError`
 3. `open_time` 晚于 `close_time` 的 Court 仅应用层拒绝（不依赖 DB）
 
-- [ ] **步骤 7：运行测试**
+- [x] **步骤 7：运行测试**
 
 ```bash
 python -m pytest tests/ -v
@@ -547,7 +547,7 @@ python -m pytest tests/ -v
 
 预期：全部 PASS。
 
-- [ ] **步骤 8：Commit**
+- [x] **步骤 8：Commit**
 
 ```bash
 git status --short && git diff --stat
