@@ -760,7 +760,7 @@ git commit -m "feat: public courts endpoints with filters and booked slots"
 - 创建：`backend/app/schemas/bookings.py`、`backend/app/routers/bookings.py`、`backend/tests/test_bookings.py`、`backend/tests/test_overbooking.py`
 - 修改：`backend/app/main.py`
 
-- [ ] **步骤 1：先写防超订并发测试 `backend/tests/test_overbooking.py`**（TDD，核心验收 12.2）
+- [x] **步骤 1：先写防超订并发测试 `backend/tests/test_overbooking.py`**（TDD，核心验收 12.2）
 
 ```python
 import asyncio
@@ -776,7 +776,7 @@ async def test_concurrent_same_slot_only_one_succeeds(client, user_token, court)
     assert sorted([r1.status_code, r2.status_code]) == [201, 409]
 ```
 
-- [ ] **步骤 2：先写功能测试 `backend/tests/test_bookings.py`**，用例：
+- [x] **步骤 2：先写功能测试 `backend/tests/test_bookings.py`**，用例：
 1. 正常预定 → 201，`status=booked`、`price` 快照等于球场价格、`paid=false`
 2. 球场不存在 → 404
 3. venue_admin / admin 下单 → 403（Q-04 基线）
@@ -787,7 +787,7 @@ async def test_concurrent_same_slot_only_one_succeeds(client, user_token, court)
 8. 同一时段重复预定（顺序执行）→ 409「该时段已被预约」
 9. 测试库 `SELECT COUNT(*)` 该 `(court_id, date, start_time)` 恒为 1
 
-- [ ] **步骤 3：实现 `routers/bookings.py` 的 `POST /bookings`**
+- [x] **步骤 3：实现 `routers/bookings.py` 的 `POST /bookings`**
 
 ```python
 @router.post("/bookings", status_code=201, response_model=BookingOut)
@@ -814,7 +814,7 @@ async def create_booking(
 
 `validate_booking_request` 规则（Q-16 / Q-20 / Q-09 / Q-10 基线）：`today <= date <= today + 6`；`open_time <= start_time` 且 `start_time + slot_minutes <= close_time`；`(start_time - open_time) % slot_minutes == 0`；`date == today 且 start_time <= 当前时间` → 409「该时段已过」。
 
-- [ ] **步骤 4：运行测试**
+- [x] **步骤 4：运行测试**
 
 ```bash
 python -m pytest tests/test_bookings.py tests/test_overbooking.py -v
@@ -822,7 +822,7 @@ python -m pytest tests/test_bookings.py tests/test_overbooking.py -v
 
 预期：全部 PASS，并发用例稳定（可重复跑 3 次确认）。
 
-- [ ] **步骤 5：Commit**
+- [x] **步骤 5：Commit**
 
 ```bash
 git status --short && git diff --stat
