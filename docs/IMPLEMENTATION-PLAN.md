@@ -875,7 +875,7 @@ git commit -m "feat: my bookings list and cancellation"
 - 创建：`backend/app/routers/venue_admin.py`、`backend/app/routers/deps.py`（数据权限依赖）、`backend/tests/test_venue_admin_courts.py`
 - 修改：`backend/app/main.py`
 
-- [ ] **步骤 1：先写数据权限依赖 `routers/deps.py`**（设计提案，SPEC 8.3 要求统一依赖）
+- [x] **步骤 1：先写数据权限依赖 `routers/deps.py`**（设计提案，SPEC 8.3 要求统一依赖）
 
 ```python
 async def get_owned_court(court_id: int, user: User = Depends(require_role("venue_admin", "admin")),
@@ -888,7 +888,7 @@ async def get_owned_court(court_id: int, user: User = Depends(require_role("venu
     return court
 ```
 
-- [ ] **步骤 2：先写测试**（TDD），用例：
+- [x] **步骤 2：先写测试**（TDD），用例：
 1. `GET /venue-admin/courts` → 仅返回自己名下的球场；无球场 → 空列表
 2. venue_admin 访问他人球场 `GET/PUT` → 404（越权按不存在处理）
 3. admin 访问任意球场 → 正常（不受 owner 限制）
@@ -897,9 +897,9 @@ async def get_owned_court(court_id: int, user: User = Depends(require_role("venu
 6. `PUT /venue-admin/courts/{id}` → 200 字段更新生效
 7. 普通用户 / 未登录访问 → 403 / 401
 
-- [ ] **步骤 3：实现 `routers/venue_admin.py`** 的球场端点：`GET /venue-admin/courts`（`owner_id == me` 过滤）、`POST /venue-admin/courts`（`CourtCreate` 校验）、`PUT /venue-admin/courts/{court_id}`（`get_owned_court` + 部分更新）。
+- [x] **步骤 3：实现 `routers/venue_admin.py`** 的球场端点：`GET /venue-admin/courts`（`owner_id == me` 过滤）、`POST /venue-admin/courts`（`CourtCreate` 校验）、`PUT /venue-admin/courts/{court_id}`（`get_owned_court` + 部分更新）。
 
-- [ ] **步骤 4：运行测试**
+- [x] **步骤 4：运行测试**
 
 ```bash
 python -m pytest tests/test_venue_admin_courts.py -v
@@ -907,7 +907,7 @@ python -m pytest tests/test_venue_admin_courts.py -v
 
 预期：全部 PASS。
 
-- [ ] **步骤 5：Commit**
+- [x] **步骤 5：Commit**
 
 ```bash
 git status --short && git diff --stat
