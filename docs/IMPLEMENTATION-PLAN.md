@@ -923,7 +923,7 @@ git commit -m "feat: venue admin court management with owner scoping"
 - 创建：`backend/tests/test_venue_admin_bookings.py`
 - 修改：`backend/app/routers/venue_admin.py`、`backend/app/schemas/bookings.py`（管理视图响应模型：BookingOut + username）
 
-- [ ] **步骤 1：先写测试**（TDD），用例：
+- [x] **步骤 1：先写测试**（TDD），用例：
 1. `GET /venue-admin/bookings` → 仅返回自己球场下的预定，含 `username`；支持 `?court_id=` 与 `?date=` 筛选
 2. 越权访问他人球场预定 → 空结果（过滤而非报错）
 3. `GET /venue-admin/bookings/calendar?month=2026-09` → 返回当月预定（月视图数据源）；`?date=` 粒度日视图复用 `GET /venue-admin/bookings?date=`（Q-17 基线：月视图 + 日视图切换）
@@ -932,9 +932,9 @@ git commit -m "feat: venue admin court management with owner scoping"
 6. `DELETE /venue-admin/bookings/{id}` 取消自己球场下未开始预定 → 200；时限与状态规则同任务 9
 7. 普通用户 / 未登录 → 403 / 401
 
-- [ ] **步骤 2：实现**：预定查询一律 join Court 并按 `Court.owner_id == current_user.id` 过滤；核销与取消复用任务 9 的状态/时限规则；响应模型含 `username`（join User）。
+- [x] **步骤 2：实现**：预定查询一律 join Court 并按 `Court.owner_id == current_user.id` 过滤；核销与取消复用任务 9 的状态/时限规则；响应模型含 `username`（join User）。
 
-- [ ] **步骤 3：运行测试**
+- [x] **步骤 3：运行测试**
 
 ```bash
 python -m pytest tests/test_venue_admin_bookings.py -v
@@ -942,7 +942,7 @@ python -m pytest tests/test_venue_admin_bookings.py -v
 
 预期：全部 PASS。
 
-- [ ] **步骤 4：Commit**
+- [x] **步骤 4：Commit**
 
 ```bash
 git status --short && git diff --stat
