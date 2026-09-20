@@ -4,7 +4,7 @@ from decimal import Decimal
 import pytest
 import pytest_asyncio
 from httpx import ASGITransport, AsyncClient
-from sqlalchemy import delete
+from sqlalchemy import delete, select
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 from sqlalchemy.pool import NullPool
 
@@ -63,6 +63,25 @@ async def user_token(client) -> str:
     await client.post("/auth/register", json={"username": "fixture_user01", "password": "pass123"})
     resp = await client.post("/auth/login", json={"username": "fixture_user01", "password": "pass123"})
     return resp.json()["access_token"]
+
+
+async def _register_and_set_role(client, db_session, username: str, role: str) -> str:
+    await client.post("/auth/register", json={"username": username, "password": "pass123"})
+    login = await client.post("/auth/login", json={"username": username, "password": "pass123"})
+    user = await db_session.scalar(select(models.User).where(models.User.username == username))
+    user.role = role
+    await db_session.commit()
+    return login.json()["access_token"]
+
+
+@pytest.fixture
+async def venue_admin_token(client, db_session) -> str:
+    return await _register_and_set_role(client, db_session, "fixture_venue_admin01", "venue_admin")
+
+
+@pytest.fixture
+async def admin_token(client, db_session) -> str:
+    return await _register_and_set_role(client, db_session, "fixture_admin01", "admin")
 
 
 @pytest.fixture
