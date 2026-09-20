@@ -1,3 +1,6 @@
+from datetime import time
+from decimal import Decimal
+
 import pytest
 import pytest_asyncio
 from httpx import ASGITransport, AsyncClient
@@ -53,3 +56,30 @@ async def db_session(test_engine):
     session_factory = async_sessionmaker(test_engine, expire_on_commit=False)
     async with session_factory() as session:
         yield session
+
+
+@pytest.fixture
+async def user_token(client) -> str:
+    await client.post("/auth/register", json={"username": "fixture_user01", "password": "pass123"})
+    resp = await client.post("/auth/login", json={"username": "fixture_user01", "password": "pass123"})
+    return resp.json()["access_token"]
+
+
+@pytest.fixture
+async def court(db_session) -> models.Court:
+    owner = models.User(username="fixture_owner01", password_hash="not-used", role="venue_admin")
+    db_session.add(owner)
+    await db_session.flush()
+    court = models.Court(
+        owner_id=owner.id,
+        name="测试羽毛球馆",
+        type="羽毛球",
+        price=Decimal("80"),
+        open_time=time(8, 0),
+        close_time=time(22, 0),
+        slot_minutes=60,
+    )
+    db_session.add(court)
+    await db_session.commit()
+    await db_session.refresh(court)
+    return court
