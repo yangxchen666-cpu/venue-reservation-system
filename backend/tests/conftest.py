@@ -1,6 +1,8 @@
 import pytest
+import pytest_asyncio
 from httpx import ASGITransport, AsyncClient
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
+from sqlalchemy.pool import NullPool
 
 from app.db import Base, get_db
 from app.main import app
@@ -8,9 +10,9 @@ from app.main import app
 TEST_DATABASE_URL = "postgresql+asyncpg://gym_app:CHANGE_ME@localhost:5432/gym_booking_test"
 
 
-@pytest.fixture(scope="session")
+@pytest_asyncio.fixture(scope="session", loop_scope="session")
 async def test_engine():
-    engine = create_async_engine(TEST_DATABASE_URL)
+    engine = create_async_engine(TEST_DATABASE_URL, poolclass=NullPool)
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.drop_all)
         await conn.run_sync(Base.metadata.create_all)
