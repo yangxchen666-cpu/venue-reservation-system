@@ -6,6 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.db import get_db
 from app.models.application import Application
 from app.models.user import User
+from app.schemas.application import ApplicationOut
 from app.schemas.auth import (
     LoginRequest,
     MeResponse,
@@ -17,6 +18,7 @@ from app.security import (
     create_access_token,
     get_current_user,
     hash_password,
+    require_role,
     verify_password,
 )
 
@@ -66,3 +68,26 @@ async def me(
         created_at=user.created_at,
         application_status=application.status if application else None,
     )
+
+
+@router.post("/apply-venue-admin", response_model=ApplicationOut, status_code=status.HTTP_201_CREATED)
+async def apply_venue_admin(
+    user: User = Depends(require_role("user")),
+    db: AsyncSession = Depends(get_db),
+) -> Application:
+    latest = await db.scalar(
+        select(Application)
+        .where(Application.user_id == user.id)
+        .order_by(Application.id.desc())
+        .limit(1)
+    )
+    if latest is not None:
+        if latest.status == "pending":
+            raise HTTPException(status.HTTP_409_CONFLICT, "已有待审批申请")
+        if latest.status == "approved":
+            raise HTTPException(status.HTTP_409_CONFLICT, "已是场地管理员")
+    application = Application(user_id=user.id, status="pending")
+    db.add(application)
+    await db.commit()
+    await db.refresh(application)
+    return application
