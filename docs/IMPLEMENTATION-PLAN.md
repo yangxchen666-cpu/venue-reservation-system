@@ -1359,13 +1359,13 @@ git commit -m "feat: venue admin dashboard"
 **文件：**
 - 创建：`frontend/src/app/admin/page.tsx`
 
-- [ ] **步骤 1：实现 `/admin`**（四个 Tab）：
+- [x] **步骤 1：实现 `/admin`**（四个 Tab）：
   1. **用户管理**：`GET /admin/users` 列表 + 角色下拉修改（`PUT /admin/users/{id}/role`，Q-13 基线：仅查看 + 角色管理）
   2. **申请审批**：`GET /admin/applications?status=pending` 列表（含 username）+ 批准 / 驳回按钮（`POST .../approve` / `.../reject`）
   3. **球场管理**：`GET /admin/courts` 全部球场 + 编辑 / 删除（删除有预定球场时展示 409 detail）
   4. **预定管理**：`GET /admin/bookings` 全部预定 + 取消
 
-- [ ] **步骤 2：验证**
+- [x] **步骤 2：验证**
 
 ```bash
 npx tsc --noEmit && npm run build
@@ -1373,7 +1373,7 @@ npx tsc --noEmit && npm run build
 
 浏览器验收：审批 pending 申请 → 对应用户 `/me` 显示 venue_admin 角色且工作台可访问；角色修改生效；球场删除在有预定时被拒绝。
 
-- [ ] **步骤 3：Commit**
+- [x] **步骤 3：Commit**
 
 ```bash
 git status --short && git diff --stat
