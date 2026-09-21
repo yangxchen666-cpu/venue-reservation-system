@@ -1234,7 +1234,7 @@ git commit -m "feat: venue detail page"
 **文件：**
 - 创建：`frontend/src/app/book/[courtId]/page.tsx`
 
-- [ ] **步骤 1：实现时段网格**：
+- [x] **步骤 1：实现时段网格**：
   1. 日期选择器：今天起 7 天（今天 ≤ 选择 ≤ 今天+6，Q-20 基线），默认今天
   2. 网格生成（SPEC 9.2）：
 
@@ -1258,7 +1258,7 @@ function buildSlots(openTime: string, closeTime: string, slotMinutes: number): s
   6. 成功 → 提示并跳转 `/orders`；409 → 提示 detail（「该时段已被预约」）并重新拉取 booked-slots 刷新置灰
   7. 未登录点击时段 → `/login?next=/book/[courtId]`（登录后回跳）
 
-- [ ] **步骤 2：验证**
+- [x] **步骤 2：验证**
 
 ```bash
 npx tsc --noEmit && npm run build
@@ -1266,7 +1266,7 @@ npx tsc --noEmit && npm run build
 
 浏览器验收：网格数量与 `buildSlots` 一致；已订/已过时段灰色不可点；下单成功跳转「我的预定」；双浏览器窗口抢占同一时段，后确认者收到 409 提示且网格刷新为置灰（前端防超订场景）。
 
-- [ ] **步骤 3：Commit**
+- [x] **步骤 3：Commit**
 
 ```bash
 git status --short && git diff --stat
