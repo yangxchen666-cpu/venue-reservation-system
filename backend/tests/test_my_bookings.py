@@ -88,6 +88,19 @@ async def test_cancel_own_booking(client, user_token, court, db_session):
     assert count == 1
 
 
+async def test_rebook_same_slot_after_cancel(client, user_token, court):
+    # 取消后该时段应重新可订（booked-slots 排除 cancelled，DB 约束须与之一致）
+    booking = await _book(client, user_token, court.id, TOMORROW, "09:00:00")
+    resp = await client.delete(f"/bookings/{booking['id']}", headers=_auth(user_token))
+    assert resp.status_code == 200
+    rebook = await client.post(
+        "/bookings",
+        json={"court_id": court.id, "date": str(TOMORROW), "start_time": "09:00:00"},
+        headers=_auth(user_token),
+    )
+    assert rebook.status_code == 201
+
+
 async def test_cancel_others_booking_forbidden(client, user_token, court):
     other_token = await _new_user_token(client, "other_user02")
     booking = await _book(client, other_token, court.id, TOMORROW, "10:00:00")
