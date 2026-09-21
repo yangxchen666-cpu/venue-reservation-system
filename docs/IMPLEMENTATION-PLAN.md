@@ -995,7 +995,7 @@ git commit -m "feat: admin user management and application approval"
 - 创建：`backend/tests/test_admin_manage.py`
 - 修改：`backend/app/routers/admin.py`
 
-- [ ] **步骤 1：先写测试**（TDD），用例：
+- [x] **步骤 1：先写测试**（TDD），用例：
 1. `GET /admin/courts` → 200 全部球场
 2. `POST /admin/courts` 需 `owner_id`（须为 venue_admin 角色，否则 422）→ 201
 3. `PUT /admin/courts/{id}` 修改任意球场 → 200
@@ -1004,9 +1004,9 @@ git commit -m "feat: admin user management and application approval"
 6. `DELETE /admin/bookings/{id}` 取消任意预定 → 200（软取消，状态/时限规则同任务 9）
 7. 非 admin → 403 / 401
 
-- [ ] **步骤 2：实现**：admin 球场端点无 owner 过滤；删除球场前查 `bookings` 存在性；预定取消复用任务 9 规则。
+- [x] **步骤 2：实现**：admin 球场端点无 owner 过滤；删除球场前查 `bookings` 存在性；预定取消复用任务 9 规则。
 
-- [ ] **步骤 3：运行测试**
+- [x] **步骤 3：运行测试**
 
 ```bash
 python -m pytest tests/test_admin_manage.py -v
@@ -1014,7 +1014,7 @@ python -m pytest tests/test_admin_manage.py -v
 
 预期：全部 PASS。
 
-- [ ] **步骤 4：Commit**
+- [x] **步骤 4：Commit**
 
 ```bash
 git status --short && git diff --stat
