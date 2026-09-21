@@ -9,10 +9,11 @@ from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 from sqlalchemy.pool import NullPool
 
 from app import models  # noqa: F401  确保模型注册到 Base.metadata
+from app.config import settings
 from app.db import Base, get_db
 from app.main import app
 
-TEST_DATABASE_URL = "postgresql+asyncpg://gym_app:CHANGE_ME@localhost:5432/gym_booking_test"
+TEST_DATABASE_URL = settings.test_database_url
 
 
 @pytest_asyncio.fixture(scope="session", loop_scope="session")
