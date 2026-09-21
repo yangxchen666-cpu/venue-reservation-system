@@ -1184,9 +1184,9 @@ git commit -m "feat: login and register pages"
 **文件：**
 - 创建：`frontend/src/app/venues/page.tsx`
 
-- [ ] **步骤 1：实现 `/venues`**：客户端组件，挂载时 `GET /courts`；卡片网格展示（名称 / 类型 / 价格 / 开放时间）；筛选控件：类型下拉（羽毛球/篮球/网球/足球 + 全部）、价格区间（min/max 输入），筛选变化即重新请求带 query 参数；空态文案「暂无场地」；加载与错误态（`ApiError.message` 展示）。
+- [x] **步骤 1：实现 `/venues`**：客户端组件，挂载时 `GET /courts`；卡片网格展示（名称 / 类型 / 价格 / 开放时间）；筛选控件：类型下拉（羽毛球/篮球/网球/足球 + 全部）、价格区间（min/max 输入），筛选变化即重新请求带 query 参数；空态文案「暂无场地」；加载与错误态（`ApiError.message` 展示）。
 
-- [ ] **步骤 2：验证**
+- [x] **步骤 2：验证**
 
 ```bash
 npx tsc --noEmit && npm run build
@@ -1194,7 +1194,7 @@ npx tsc --noEmit && npm run build
 
 浏览器验收：后端启动且已有球场数据时（可先用任务 10 的接口或 seed 数据），列表正确展示；类型/价格筛选生效；空态与错误态正常。验收时若数据库无球场，先用场地管理员账号（admin 也可）创建测试球场。
 
-- [ ] **步骤 3：Commit**
+- [x] **步骤 3：Commit**
 
 ```bash
 git status --short && git diff --stat
