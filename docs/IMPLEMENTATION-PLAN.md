@@ -1073,7 +1073,7 @@ git add -A && git commit -m "test: backend acceptance verification"
 - 创建：`frontend/`（脚手架生成）、`frontend/.env.local`、`frontend/src/lib/api.ts`、`frontend/src/lib/types.ts`、`frontend/src/lib/auth.ts`
 - 修改：`frontend/src/app/layout.tsx`（全局导航与登录态）、`frontend/src/app/globals.css`（如需要）
 
-- [ ] **步骤 1：生成脚手架**
+- [x] **步骤 1：生成脚手架**
 
 ```bash
 cd /e/Dev/aicoding/demo260920-gym
@@ -1082,15 +1082,15 @@ npx create-next-app@latest frontend --typescript --app --tailwind --eslint --src
 
 验证：`cd frontend && npm run dev` 后 http://localhost:3000 显示默认页；`npx tsc --noEmit` 无错误。
 
-- [ ] **步骤 2：创建 `frontend/.env.local`**
+- [x] **步骤 2：创建 `frontend/.env.local`**
 
 ```
 NEXT_PUBLIC_API_BASE_URL=http://localhost:8000
 ```
 
-- [ ] **步骤 3：创建 `frontend/src/lib/types.ts`**（与后端 schemas 对应：`User` / `Court` / `Booking` / `ApplicationStatus` / `TokenResponse` / `MeResponse`）。
+- [x] **步骤 3：创建 `frontend/src/lib/types.ts`**（与后端 schemas 对应：`User` / `Court` / `Booking` / `ApplicationStatus` / `TokenResponse` / `MeResponse`）。
 
-- [ ] **步骤 4：创建 `frontend/src/lib/api.ts`**
+- [x] **步骤 4：创建 `frontend/src/lib/api.ts`**
 
 ```ts
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
@@ -1130,11 +1130,11 @@ export async function apiFetch<T>(path: string, options: RequestInit = {}): Prom
 }
 ```
 
-- [ ] **步骤 5：创建 `frontend/src/lib/auth.ts`**：`getToken` / `setToken` / `clearToken` / `isLoggedIn`（localStorage 键名 `token`）。
+- [x] **步骤 5：创建 `frontend/src/lib/auth.ts`**：`getToken` / `setToken` / `clearToken` / `isLoggedIn`（localStorage 键名 `token`）。
 
-- [ ] **步骤 6：修改 `layout.tsx`**：顶部导航（场地列表 / 我的预定 / 个人中心 / 场地管理员 / 系统后台 / 登录注册或退出），按 `isLoggedIn` 与角色显示；`"use client"`。
+- [x] **步骤 6：修改 `layout.tsx`**：顶部导航（场地列表 / 我的预定 / 个人中心 / 场地管理员 / 系统后台 / 登录注册或退出），按 `isLoggedIn` 与角色显示；`"use client"`。
 
-- [ ] **步骤 7：验证**
+- [x] **步骤 7：验证**
 
 ```bash
 npx tsc --noEmit && npm run build
@@ -1142,7 +1142,7 @@ npx tsc --noEmit && npm run build
 
 预期：构建成功。浏览器确认导航与空页面可访问。
 
-- [ ] **步骤 8：Commit**
+- [x] **步骤 8：Commit**
 
 ```bash
 git status --short && git diff --stat
