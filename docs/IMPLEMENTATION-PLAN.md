@@ -1157,11 +1157,11 @@ git commit -m "feat: next.js scaffold with api client types and auth helpers"
 **文件：**
 - 创建：`frontend/src/app/login/page.tsx`、`frontend/src/app/register/page.tsx`
 
-- [ ] **步骤 1：实现 `/register`**：用户名 + 密码 + 确认密码表单；客户端校验（长度/字符/密码规则）与后端 422 detail 展示；成功 → `router.push("/login")` 并提示注册成功。
+- [x] **步骤 1：实现 `/register`**：用户名 + 密码 + 确认密码表单；客户端校验（长度/字符/密码规则）与后端 422 detail 展示；成功 → `router.push("/login")` 并提示注册成功。
 
-- [ ] **步骤 2：实现 `/login`**：表单提交 `POST /auth/login`；成功 → `setToken` 并跳转 `next` 查询参数指向的页面（无则 `/venues`）；失败 → 展示 401 提示「用户名或密码错误」。
+- [x] **步骤 2：实现 `/login`**：表单提交 `POST /auth/login`；成功 → `setToken` 并跳转 `next` 查询参数指向的页面（无则 `/venues`）；失败 → 展示 401 提示「用户名或密码错误」。
 
-- [ ] **步骤 3：验证**
+- [x] **步骤 3：验证**
 
 ```bash
 npx tsc --noEmit && npm run build && npm run dev
@@ -1169,7 +1169,7 @@ npx tsc --noEmit && npm run build && npm run dev
 
 浏览器验收：注册新用户 → 自动到登录页 → 登录 → 跳转 `/venues`（此时无数据可显示空态，空态由任务 17 完成）；错误密码显示 401 提示；未登录访问 `/orders` → 被 api.ts 重定向到 `/login?next=/orders`。
 
-- [ ] **步骤 4：Commit**
+- [x] **步骤 4：Commit**
 
 ```bash
 git status --short && git diff --stat
