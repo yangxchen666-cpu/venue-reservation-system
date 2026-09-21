@@ -1387,18 +1387,18 @@ git commit -m "feat: admin dashboard"
 
 **前置：** 任务 23
 
-- [ ] **步骤 1：双端启动**：终端 A `cd backend && uvicorn app.main:app --reload`；终端 B `cd frontend && npm run dev`。确认前端请求不被 CORS 拦截（Network 面板无 CORS 错误）。
+- [x] **步骤 1：双端启动**：终端 A `cd backend && uvicorn app.main:app --reload`；终端 B `cd frontend && npm run dev`。确认前端请求不被 CORS 拦截（Network 面板无 CORS 错误）。
 
-- [ ] **步骤 2：走查 PRD 10.3 全流程**：
+- [x] **步骤 2：走查 PRD 10.3 全流程**：
   1. 注册 → 筛选场地 → 选场地 → 选时段 → 下单 → 我的预定 → 取消
   2. 普通用户申请场地管理员 → admin 审批通过 → 该用户新建球场 → 用户下单 → 场地管理员查看并核销
   3. 系统管理员后台管理用户、球场与预定
   4. 双窗口抢占同一时段 → 一个成功一个 409 提示且网格置灰
   5. 未登录点击时段 → 登录后回跳预约页
 
-- [ ] **步骤 3：性能与兼容性抽查**（Q-24 / Q-25 基线）：Network 面板确认常规接口 < 1s；用最新版 Chrome/Edge 验收。
+- [x] **步骤 3：性能与兼容性抽查**（Q-24 / Q-25 基线）：Network 面板确认常规接口 < 1s；用最新版 Chrome/Edge 验收。
 
-- [ ] **步骤 4：Commit**（联调中若修改了代码）
+- [x] **步骤 4：Commit**（联调中若修改了代码）
 
 ```bash
 git status --short && git diff --stat
