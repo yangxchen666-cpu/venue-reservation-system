@@ -1026,7 +1026,7 @@ git commit -m "feat: admin global courts and bookings management"
 
 **前置：** 任务 13
 
-- [ ] **步骤 1：全量测试**
+- [x] **步骤 1：全量测试**
 
 ```bash
 cd backend && python -m pytest tests/ -v
@@ -1034,9 +1034,9 @@ cd backend && python -m pytest tests/ -v
 
 预期：全部 PASS。
 
-- [ ] **步骤 2：Swagger 与健康检查**：`uvicorn app.main:app --reload` 启动后打开 `http://localhost:8000/docs`，确认 5 个路由模块（auth / courts / bookings / venue_admin / admin）与 `/healthz` 全部可见。
+- [x] **步骤 2：Swagger 与健康检查**：`uvicorn app.main:app --reload` 启动后打开 `http://localhost:8000/docs`，确认 5 个路由模块（auth / courts / bookings / venue_admin / admin）与 `/healthz` 全部可见。
 
-- [ ] **步骤 3：curl 走通完整链路**（PRD 10.1）：
+- [x] **步骤 3：curl 走通完整链路**（PRD 10.1）：
 
 ```bash
 TOKEN=$(curl -s -X POST http://localhost:8000/auth/login -H "Content-Type: application/json" \
@@ -1047,7 +1047,7 @@ curl -s -X POST http://localhost:8000/bookings -H "Authorization: Bearer $TOKEN"
 
 预期：查场地返回 JSON；下单返回 403（admin 不可下单，Q-04 基线正确性自证）。再用注册的新用户走「注册 → 登录 → 查场地 → 下单 → 取消」。
 
-- [ ] **步骤 4：防超订并发验收（PRD 10.2）**：运行任务 8 的并发测试并手工复核：
+- [x] **步骤 4：防超订并发验收（PRD 10.2）**：运行任务 8 的并发测试并手工复核：
 
 ```bash
 psql "postgresql://gym_app:你的口令@localhost:5432/gym_booking" -c "SELECT court_id, date, start_time, COUNT(*) FROM bookings GROUP BY 1,2,3 HAVING COUNT(*) > 1;"
@@ -1056,7 +1056,7 @@ psql "postgresql://gym_app:你的口令@localhost:5432/gym_booking" -c "\d booki
 
 预期：第一条 SQL 输出 0 行；`\d` 显示 `uq_booking_court_date_start` 唯一约束。
 
-- [ ] **步骤 5：Commit**（如验收中发现并修复了问题，提交修复；否则提交验收记录）
+- [x] **步骤 5：Commit**（如验收中发现并修复了问题，提交修复；否则提交验收记录）
 
 ```bash
 git status --short && git diff --stat
