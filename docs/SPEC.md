@@ -207,6 +207,8 @@ demo260920-gym/
 ### 6.6 核心约束 — 防超订（已定需求，不属待确认）
 
 1. **唯一约束**：`UNIQUE (court_id, date, start_time)` —— 同一球场同一日期同一开始时段最多一条预定记录
+
+> **实施注记（联调修正）：** 约束按部分索引实现 `UNIQUE (court_id, date, start_time) WHERE status <> 'cancelled'`（索引名 `uq_booking_active_slot`，Alembic 迁移 `fe1d5b6b3537`）。软取消（记录保留）后该时段应重新可订，与 `GET /courts/{id}/booked-slots` 排除 cancelled 的语义一致；活跃预定（booked / checked_in）之间仍由数据库硬保证互斥。
 2. **事务内插入**：创建预定在事务内执行 INSERT；捕获唯一约束冲突（IntegrityError）→ 回滚 → 返回 HTTP 409「该时段已被预约」
 3. **禁止仅依赖应用层判断**：「先查询后插入」存在竞态窗口，不允许作为防超订手段；数据库层硬保证是唯一可接受实现
 4. 并发下仅一个请求成功，其余请求明确失败（409）
@@ -323,7 +325,7 @@ Court 1 ─── N Booking         （唯一约束保证同时段仅一条）
 
 已定需求（PRD 9.1 / 6.6，不属待确认）：
 
-1. `bookings` 表唯一约束 `UNIQUE (court_id, date, start_time)`
+1. `bookings` 表唯一约束 `UNIQUE (court_id, date, start_time)`（部分索引实现，见 6.6 实施注记）
 2. 创建预定流程：
    1. 校验 `date` 在可预约范围内（范围 Q-20 待确认）、`start_time` 在 `open_time` ~ `close_time` 内且与 `slot_minutes` 对齐
    2. 事务内 INSERT；捕获 IntegrityError → 回滚 → 返回 409「该时段已被预约」
