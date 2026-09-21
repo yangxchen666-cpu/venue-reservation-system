@@ -54,3 +54,13 @@ export interface Booking {
 export interface AdminBooking extends Booking {
   username: string;
 }
+
+/** admin 申请列表项：GET /admin/applications 响应（Application + user_id + username） */
+export interface AdminApplication {
+  id: number;
+  status: ApplicationStatus;
+  created_at: string;
+  reviewed_at: string | null;
+  user_id: number;
+  username: string;
+}
