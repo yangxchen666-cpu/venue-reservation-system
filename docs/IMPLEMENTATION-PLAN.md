@@ -1331,12 +1331,12 @@ git commit -m "feat: profile page with venue admin application"
 **文件：**
 - 创建：`frontend/src/app/venue-admin/page.tsx`
 
-- [ ] **步骤 1：实现 `/venue-admin`**（三个 Tab）：
+- [x] **步骤 1：实现 `/venue-admin`**（三个 Tab）：
   1. **我的球场**：`GET /venue-admin/courts` 列表 + 新建表单（名称 / 类型下拉 / 价格 / 开放与关闭时间 / 时段粒度 60|120|180 下拉，Q-09 基线）+ 编辑（`POST` / `PUT`）；422 错误展示 detail
   2. **预定管理**：`GET /venue-admin/bookings`（可按日期筛选）列表展示 username / 球场 / 时段 / 状态；「核销」按钮（仅 booked，`POST .../check-in`）；「取消」按钮（规则同任务 20）；月视图 / 日视图切换（Q-17 基线）：月视图调 `GET /venue-admin/bookings/calendar?month=` 渲染月历格子（每日预定数 + 点击进入该日日视图），日视图即按 `?date=` 筛选的列表
   3. 非 venue_admin 访问 → 提示无权限（后端 403 由 api.ts 展示）
 
-- [ ] **步骤 2：验证**
+- [x] **步骤 2：验证**
 
 ```bash
 npx tsc --noEmit && npm run build
@@ -1344,7 +1344,7 @@ npx tsc --noEmit && npm run build
 
 浏览器验收：新建球场后场地列表页可见（闭环）；用户下单后工作台列表出现预定；核销后状态变「已核销」；月视图显示当月预定并可切到日视图。
 
-- [ ] **步骤 3：Commit**
+- [x] **步骤 3：Commit**
 
 ```bash
 git status --short && git diff --stat
