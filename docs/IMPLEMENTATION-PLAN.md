@@ -1306,9 +1306,9 @@ git commit -m "feat: my orders page"
 **文件：**
 - 创建：`frontend/src/app/me/page.tsx`
 
-- [ ] **步骤 1：实现 `/me`**：`GET /auth/me` 展示用户名与角色；普通用户显示申请区：无申请 →「申请成为场地管理员」按钮（`POST /auth/apply-venue-admin`）；`application_status` 为 pending → 显示「审批中」；rejected → 显示「已被驳回」+ 可重新申请按钮（Q-14 基线）；approved → 角色已变 venue_admin，申请入口隐藏并显示角色徽章。
+- [x] **步骤 1：实现 `/me`**：`GET /auth/me` 展示用户名与角色；普通用户显示申请区：无申请 →「申请成为场地管理员」按钮（`POST /auth/apply-venue-admin`）；`application_status` 为 pending → 显示「审批中」；rejected → 显示「已被驳回」+ 可重新申请按钮（Q-14 基线）；approved → 角色已变 venue_admin，申请入口隐藏并显示角色徽章。
 
-- [ ] **步骤 2：验证**
+- [x] **步骤 2：验证**
 
 ```bash
 npx tsc --noEmit && npm run build
@@ -1316,7 +1316,7 @@ npx tsc --noEmit && npm run build
 
 浏览器验收：申请 → 状态变「审批中」；刷新页面状态保持；驳回后（由 admin 在任务 23 的操作触发）可重新申请。
 
-- [ ] **步骤 3：Commit**
+- [x] **步骤 3：Commit**
 
 ```bash
 git status --short && git diff --stat
