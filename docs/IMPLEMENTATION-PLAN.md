@@ -1209,9 +1209,9 @@ git commit -m "feat: venue list page with filters"
 **文件：**
 - 创建：`frontend/src/app/venues/[courtId]/page.tsx`
 
-- [ ] **步骤 1：实现 `/venues/[courtId]`**（SPEC-3 基线）：`GET /courts/{courtId}` 展示名称 / 类型 / 价格 / 开放时间 / 时段划分（由 open_time/close_time/slot_minutes 生成预览文本，如「09:00-22:00，每 60 分钟一节」）；「去预定」按钮 → `/book/[courtId]`；404 显示「场地不存在」。
+- [x] **步骤 1：实现 `/venues/[courtId]`**（SPEC-3 基线）：`GET /courts/{courtId}` 展示名称 / 类型 / 价格 / 开放时间 / 时段划分（由 open_time/close_time/slot_minutes 生成预览文本，如「09:00-22:00，每 60 分钟一节」）；「去预定」按钮 → `/book/[courtId]`；404 显示「场地不存在」。
 
-- [ ] **步骤 2：验证**
+- [x] **步骤 2：验证**
 
 ```bash
 npx tsc --noEmit && npm run build
@@ -1219,7 +1219,7 @@ npx tsc --noEmit && npm run build
 
 浏览器验收：从列表页进入详情，字段齐全；「去预定」跳转正常；不存在的 id 显示 404 文案。
 
-- [ ] **步骤 3：Commit**
+- [x] **步骤 3：Commit**
 
 ```bash
 git status --short && git diff --stat
