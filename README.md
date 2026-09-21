@@ -1,6 +1,6 @@
 # 球场预定管理系统
 
-学习 / Demo / 毕设项目。Next.js 15 + FastAPI + PostgreSQL 17，实现球场浏览、分时段预定、核销与全局管理的完整业务闭环。
+Next.js 15 + FastAPI + PostgreSQL 17，实现球场浏览、分时段预定、核销与全局管理的完整业务闭环。
 
 ## 目录结构
 
