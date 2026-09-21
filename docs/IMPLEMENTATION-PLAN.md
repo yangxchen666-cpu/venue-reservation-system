@@ -859,7 +859,7 @@ python -m pytest tests/test_my_bookings.py -v
 
 预期：全部 PASS。
 
-- [ ] **步骤 4：Commit**
+- [x] **步骤 4：Commit**
 
 ```bash
 git status --short && git diff --stat
@@ -1412,11 +1412,11 @@ git add -A && git commit -m "chore: integration tuning and e2e acceptance"
 **文件：**
 - 修改：`README.md`（seed 凭据说明与启动方式最终核对，Q-12 基线）、`docs/IMPLEMENTATION-PLAN.md`（勾选完成的步骤复选框）
 
-- [ ] **步骤 1：核对 README**：启动方式与实际命令一致；补充「初始管理员账号来自 `backend/.env` 的 SEED_ADMIN_* 配置」说明。
+- [x] **步骤 1：核对 README**：启动方式与实际命令一致；补充「初始管理员账号来自 `backend/.env` 的 SEED_ADMIN_* 配置」说明。
 
-- [ ] **步骤 2：核对本计划**：全部步骤复选框已勾选；与 PRD / SPEC 对照确认无遗漏需求（对照 PRD 10.1~10.4 验收清单逐项复核）。
+- [x] **步骤 2：核对本计划**：全部步骤复选框已勾选；与 PRD / SPEC 对照确认无遗漏需求（对照 PRD 10.1~10.4 验收清单逐项复核）。
 
-- [ ] **步骤 3：Commit**
+- [x] **步骤 3：Commit**
 
 ```bash
 git status --short && git diff --stat
