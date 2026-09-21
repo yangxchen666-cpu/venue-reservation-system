@@ -1281,9 +1281,9 @@ git commit -m "feat: booking page with slot grid"
 **文件：**
 - 创建：`frontend/src/app/orders/page.tsx`
 
-- [ ] **步骤 1：实现 `/orders`**：`GET /bookings/my` 列表（球场名 / 日期 / 时段 / 价格 / 状态徽章：已预定 / 已核销 / 已取消 / 已过期——由 `date`+`start_time` 与当前时间比较推导，不新增后端状态，Q-05 基线）；「取消」按钮：仅 `booked` 且未开始可点，二次确认后 `DELETE /bookings/{id}`，409 时展示 detail 并刷新列表。
+- [x] **步骤 1：实现 `/orders`**：`GET /bookings/my` 列表（球场名 / 日期 / 时段 / 价格 / 状态徽章：已预定 / 已核销 / 已取消 / 已过期——由 `date`+`start_time` 与当前时间比较推导，不新增后端状态，Q-05 基线）；「取消」按钮：仅 `booked` 且未开始可点，二次确认后 `DELETE /bookings/{id}`，409 时展示 detail 并刷新列表。
 
-- [ ] **步骤 2：验证**
+- [x] **步骤 2：验证**
 
 ```bash
 npx tsc --noEmit && npm run build
@@ -1291,7 +1291,7 @@ npx tsc --noEmit && npm run build
 
 浏览器验收：下单后列表可见；取消后状态徽章变「已取消」；已开始/已核销的预定取消按钮禁用。
 
-- [ ] **步骤 3：Commit**
+- [x] **步骤 3：Commit**
 
 ```bash
 git status --short && git diff --stat
